@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>계산기</title>
+  <title>GM Calculator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="top-bar">
+    <span class="app-title">GM Calculator</span>
+  </header>
   <div class="calculator">
     <div class="display">
       <div class="expression" id="expression"></div>
@@ -38,6 +41,12 @@
       <button class="btn btn-orange" onclick="calculate()">=</button>
     </div>
   </div>
+  <nav class="bottom-nav">
+    <a href="../index.html" class="nav-link">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">홈</span>
+    </a>
+  </nav>
   <script src="calculator.js"></script>
 </body>
 </html>
