@@ -3,41 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>계산기</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Hello World from GM</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f1a;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    /* 배경 별 효과 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(120, 40, 200, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(255, 159, 10, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero {
+      text-align: center;
+      z-index: 1;
+    }
+
+    .greeting {
+      font-size: clamp(36px, 8vw, 72px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .greeting span {
+      background: linear-gradient(135deg, #ff9f0a, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 18px;
+      margin-bottom: 60px;
+      animation: fadeDown 0.8s 0.15s ease both;
+    }
+
+    .services {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      padding: 28px 36px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 159, 10, 0.1);
+      border-color: rgba(255, 159, 10, 0.4);
+    }
+
+    .service-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #ff9f0a, #ff6b00);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 8px 24px rgba(255, 159, 10, 0.3);
+      transition: box-shadow 0.2s;
+    }
+
+    .service-card:hover .service-icon {
+      box-shadow: 0 12px 32px rgba(255, 159, 10, 0.5);
+    }
+
+    .service-label {
+      color: #ccc;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .service-card:hover .service-label {
+      color: #fff;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
-  <div class="calculator">
-    <div class="display">
-      <div class="expression" id="expression"></div>
-      <div class="result" id="result">0</div>
-    </div>
-    <div class="buttons">
-      <button class="btn btn-wide btn-gray" onclick="clearAll()">AC</button>
-      <button class="btn btn-gray" onclick="toggleSign()">+/-</button>
-      <button class="btn btn-gray" onclick="percentage()">%</button>
-      <button class="btn btn-orange" onclick="inputOp('÷')">÷</button>
-
-      <button class="btn" onclick="inputNum('7')">7</button>
-      <button class="btn" onclick="inputNum('8')">8</button>
-      <button class="btn" onclick="inputNum('9')">9</button>
-      <button class="btn btn-orange" onclick="inputOp('×')">×</button>
-
-      <button class="btn" onclick="inputNum('4')">4</button>
-      <button class="btn" onclick="inputNum('5')">5</button>
-      <button class="btn" onclick="inputNum('6')">6</button>
-      <button class="btn btn-orange" onclick="inputOp('-')">-</button>
-
-      <button class="btn" onclick="inputNum('1')">1</button>
-      <button class="btn" onclick="inputNum('2')">2</button>
-      <button class="btn" onclick="inputNum('3')">3</button>
-      <button class="btn btn-orange" onclick="inputOp('+')">+</button>
-
-      <button class="btn btn-wide" onclick="inputNum('0')">0</button>
-      <button class="btn" onclick="inputDot()">.</button>
-      <button class="btn btn-orange" onclick="calculate()">=</button>
+  <div class="hero">
+    <h1 class="greeting">Hello World<br/>from <span>GM</span></h1>
+    <p class="subtitle">서비스를 선택해 주세요</p>
+    <div class="services">
+      <a href="./calculator/index.html" class="service-card">
+        <div class="service-icon">🧮</div>
+        <span class="service-label">계산기</span>
+      </a>
     </div>
   </div>
-  <script src="calculator.js"></script>
 </body>
 </html>
