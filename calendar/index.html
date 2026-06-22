@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GM Calendar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f111e;
+      color: #eef2ff;
+    }
+    .card {
+      max-width: 520px;
+      width: 100%;
+      padding: 32px;
+      border-radius: 24px;
+      background: rgba(15, 18, 40, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+      text-align: center;
+    }
+    .card h1 {
+      font-size: 2.05rem;
+      margin-bottom: 12px;
+    }
+    .card p {
+      color: #c9d1ff;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .menu {
+      display: grid;
+      gap: 14px;
+    }
+    .menu-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-weight: 600;
+    }
+    .menu-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(14, 165, 233, 0.22);
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      color: #a5b4fc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GM Calendar</h1>
+    <p>캘린더 서비스를 계산기처럼 빠르게 시작할 수 있습니다. 일정 보기와 추가, 월별 이동 기능을 여기에 넣어보세요.</p>
+    <div class="menu">
+      <a class="menu-link" href="#">일정 보기</a>
+      <a class="menu-link" href="#">일정 추가</a>
+      <a class="menu-link" href="#">월별 보기</a>
+    </div>
+    <div class="actions">
+      <a class="nav-link" href="../index.html">홈으로 돌아가기</a>
+      <a class="nav-link" href="../calculator/index.html">계산기로 이동</a>
+    </div>
+  </div>
+</body>
+</html>
