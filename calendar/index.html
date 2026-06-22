@@ -17,54 +17,114 @@
       align-items: center;
       padding: 24px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0f111e;
+      background: linear-gradient(180deg, #0b122a 0%, #111827 100%);
       color: #eef2ff;
     }
     .card {
-      max-width: 520px;
-      width: 100%;
-      padding: 32px;
-      border-radius: 24px;
-      background: rgba(15, 18, 40, 0.92);
+      width: min(640px, 100%);
+      padding: 28px;
+      border-radius: 28px;
+      background: rgba(15, 18, 40, 0.96);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
-      text-align: center;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
     }
-    .card h1 {
-      font-size: 2.05rem;
-      margin-bottom: 12px;
-    }
-    .card p {
-      color: #c9d1ff;
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-    .menu {
+    .calendar-header {
       display: grid;
-      gap: 14px;
+      gap: 18px;
+      margin-bottom: 22px;
     }
-    .menu-link {
-      display: inline-flex;
+    .calendar-header h1 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      line-height: 1.05;
+    }
+    .calendar-header .subtitle {
+      color: #cbd5e1;
+      font-size: 1rem;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      padding: 14px 18px;
+      gap: 10px;
+    }
+    .controls button {
+      border: none;
       border-radius: 14px;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 10px 14px;
+      background: rgba(14, 165, 233, 0.14);
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.16s ease;
+      font-size: 0.95rem;
+    }
+    .controls button:hover {
+      transform: translateY(-1px);
+      background: rgba(14, 165, 233, 0.22);
+    }
+    .month-label {
+      min-width: 180px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f8fafc;
+    }
+    .calendar {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .weekdays,
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+    .weekdays div,
+    .days div {
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .weekdays {
+      background: rgba(15, 23, 42, 0.95);
+      color: #94a3b8;
       font-weight: 600;
     }
-    .menu-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 30px rgba(14, 165, 233, 0.22);
+    .days {
+      gap: 2px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.88);
+    }
+    .day {
+      min-height: 74px;
+      border-radius: 16px;
+      background: rgba(30, 41, 59, 0.95);
+      color: #e2e8f0;
+      display: grid;
+      place-items: center;
+      transition: transform 0.16s ease, background 0.16s ease;
+    }
+    .day:hover {
+      transform: translateY(-1px);
+      background: rgba(56, 189, 248, 0.16);
+    }
+    .day.empty {
+      background: transparent;
+      color: transparent;
+      cursor: default;
+    }
+    .day.today {
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      color: #fff;
+      box-shadow: 0 18px 30px rgba(14, 165, 233, 0.2);
     }
     .actions {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 16px;
       flex-wrap: wrap;
+      margin-top: 22px;
     }
     .nav-link {
       color: #a5b4fc;
@@ -75,17 +135,96 @@
 </head>
 <body>
   <div class="card">
-    <h1>GM Calendar</h1>
-    <p>캘린더 서비스를 계산기처럼 빠르게 시작할 수 있습니다. 일정 보기와 추가, 월별 이동 기능을 여기에 넣어보세요.</p>
-    <div class="menu">
-      <a class="menu-link" href="#">일정 보기</a>
-      <a class="menu-link" href="#">일정 추가</a>
-      <a class="menu-link" href="#">월별 보기</a>
+    <div class="calendar-header">
+      <div>
+        <h1>GM Calendar</h1>
+        <p class="subtitle">이번 달 캘린더를 기본으로 보여줍니다. 이전달, 다음달, 작년, 내년 버튼으로 빠르게 이동하세요.</p>
+      </div>
+      <div class="controls">
+        <button type="button" onclick="changeYear(-1)">◀ 작년</button>
+        <button type="button" onclick="changeMonth(-1)">◀ 이전달</button>
+        <div class="month-label" id="monthLabel"></div>
+        <button type="button" onclick="changeMonth(1)">다음달 ▶</button>
+        <button type="button" onclick="changeYear(1)">내년 ▶</button>
+      </div>
     </div>
+
+    <div class="calendar">
+      <div class="weekdays">
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
+      </div>
+      <div class="days" id="calendarDays"></div>
+    </div>
+
     <div class="actions">
       <a class="nav-link" href="../index.html">홈으로 돌아가기</a>
       <a class="nav-link" href="../calculator/index.html">계산기로 이동</a>
     </div>
   </div>
+
+  <script>
+    const monthLabel = document.getElementById('monthLabel');
+    const calendarDays = document.getElementById('calendarDays');
+    const now = new Date();
+    let currentYear = now.getFullYear();
+    let currentMonth = now.getMonth();
+
+    function renderCalendar(year, month) {
+      const date = new Date(year, month, 1);
+      const today = new Date();
+      const firstDayIndex = date.getDay();
+      const lastDay = new Date(year, month + 1, 0).getDate();
+
+      monthLabel.textContent = `${year}년 ${month + 1}월`;
+      calendarDays.innerHTML = '';
+
+      for (let i = 0; i < firstDayIndex; i += 1) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day empty';
+        calendarDays.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= lastDay; day += 1) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'day';
+        dayCell.textContent = day;
+
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          dayCell.classList.add('today');
+        }
+
+        calendarDays.appendChild(dayCell);
+      }
+    }
+
+    function changeMonth(offset) {
+      currentMonth += offset;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      }
+      renderCalendar(currentYear, currentMonth);
+    }
+
+    function changeYear(offset) {
+      currentYear += offset;
+      renderCalendar(currentYear, currentMonth);
+    }
+
+    renderCalendar(currentYear, currentMonth);
+  </script>
 </body>
 </html>
